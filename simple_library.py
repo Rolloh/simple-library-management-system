@@ -24,7 +24,7 @@ def inventory():
         # used a loop to get the values of each key 
         for key in books:
             values = books[key]
-            print("There are", values[2], "copies of", values[0], "by", values[1], ".")
+            print("There are", values[2], "copies of", values[0], "by", values[1]+".")
             total = total + values[2]
         print("And there are a total of", total, "books in the library.")
         
@@ -64,9 +64,10 @@ def inventory():
 
 
 def borrow():
+    
     # This program updates the inventory of books to reflect books borrowed
 
-    books = {1: ["Alice in wonderland", "Lewis Carrol", 14], 2: ["The wind in the willows", "Kenneth Graham", 25],
+    books1 = {1: ["Alice in wonderland", "Lewis Carrol", 14], 2: ["The wind in the willows", "Kenneth Graham", 25],
              3: ["The merchant of venice", "Shakespeare", 9], 4: ["Utopia", "Sir Thomas Moore", 16],
              5: ["A tale of two cities", "Charles Dickens", 12], 6: ["Divine comedy", "Dante", 5],
              7: ["The wild iris", "Louis Gluck", 10], 8: ["Pilgrim's progress", "John Bunyan", 23],
@@ -79,34 +80,42 @@ def borrow():
     book_borrowed = input("\nWhat is the title of the book being borrowed? ")
     num = int(input("How many? "))
     #writer = input("Who wrote the book? ")
-    #title = book_borrowed.capitalize()
 
     new_list = []
-    for key in books:        
-        values = books[key]
+    for key in books1:
+        values = books1[key]
         new_list.append(values[0])
-           
+
     #print(new_list)
+    
     if book_borrowed.capitalize() in new_list:
-        for key in books:
-            #if book_borrowed.capitalize() == values[0]:
-            print(key,values)
+        print("We have it!")
+        for key in books1:
+            values = books1[key]
+            if book_borrowed.capitalize() == values[0]:
+                values[2] = values[2] - num
+        
     else:
-        print("Sorry, this book is not available.")
+        print("Sorry, this book is not available.")    
 
-    #updated_inv =
-      
-
-    inv = input("\nWould you like to view the updated list of books(yes\no)? ")
+    inv = input("\nWould you like to view the updated list of books(yes / no)? ")
     if inv.lower()[0] == "y":
-        print(updated_inv)
+        for key in books1:
+            values = books1[key]
+            print("There are", values[2], "copies of", values[0])
+
+    main_menu = input("\nWould you like to go back to the main menu(yes / no)? ")
+    if main_menu.lower()[0] == "y":
+        main()
     else:
-        print("Have a great day!")
+        print("\nHave a great day.")
+
 
 def re_turn():
 
     # This program updates the inventory of books to reflect books returned
-    books = {1: ["Alice in wonderland", "Lewis Carrol", 14], 2: ["The wind in the willows", "Kenneth Graham", 25],
+    
+    books2 = {1: ["Alice in wonderland", "Lewis Carrol", 14], 2: ["The wind in the willows", "Kenneth Graham", 25],
              3: ["The merchant of venice", "Shakespeare", 9], 4: ["Utopia", "Sir Thomas Moore", 16],
              5: ["A tale of two cities", "Charles Dickens", 12], 6: ["Divine comedy", "Dante", 5],
              7: ["The wild iris", "Louis Gluck", 10], 8: ["Pilgrim's progress", "John Bunyan", 23],
@@ -115,19 +124,49 @@ def re_turn():
              13: ["Diary of a wimpy kid", "Jeff Kinney", 28], 14: ["Crime and punishment", "Dostoevsky", 11],
              15: ["The great gatsby", "F. Scott Fitzgerald", 19], 16: ["To kill a mockingbird", "Harper Lee", 23]}
 
-    return_title = input("What is the title of the book you want to return? ")
+    return_title = input("\nWhat is the title of the book you want to return? ")
     return_count = int(input("How many? "))
-    #return_author =
+
+    bk_list = []
+    for key in books2:
+        values = books2[key]
+        bk_list.append(values[0])
+        
+    if return_title.capitalize() in bk_list:
+        print("\nThank you for returning the book!")
+        for key in books2:
+            values = books2[key]
+            if return_title.capitalize() == values[0]:
+                values[2] = values[2] + return_count
+
+    else:
+        new_bk_author = input("Who is the author? ")
+        new_bk_serial_num = int(input("Enter the serial number: "))
+        books2[new_bk_serial_num] = [return_title.capitalize(), new_bk_author, return_count]           
+        
+
+    ret_inv = input("\nWould you like to view the updated list of books(yes / no)? ")
+    if ret_inv.lower()[0] == "y":
+        for key in books2:
+            values = books2[key]
+            print(values[0], "-", values[2])
 
     #return_opt
 
 def return2():
 
-    return_multiple = input("Do you have any more books to return(yes / no)? ")
+    return_multiple = input("\nDo you have any more books to return(yes / no)? ")
     if return_multiple.lower()[0] == "y":
         re_turn()
     else:
-        print("Have a great day.")    
+        opt3 = input("\nWould you like to go back to the main menu(yes / no)? ")
+        print("")
+        if opt3.lower()[0] == "y":
+            main()
+        elif opt3.lower()[0] == "n":
+            print("\nHave a great day.")
+        else:
+            print('Invalid input!')            
 
 
 def stat():
@@ -135,7 +174,7 @@ def stat():
 
     book_title = input("\nWhat is the title of the book? ")
 
-    books = {1: ["Alice in wonderland", "Lewis Carrol", 14], 2: ["The wind in the willows", "Kenneth Graham", 25],
+    books3 = {1: ["Alice in wonderland", "Lewis Carrol", 14], 2: ["The wind in the willows", "Kenneth Graham", 25],
              3: ["The merchant of venice", "Shakespeare", 9], 4: ["Utopia", "Sir Thomas Moore", 16],
              5: ["A tale of two cities", "Charles Dickens", 12], 6: ["Divine comedy", "Dante", 5],
              7: ["The wild iris", "Louis Gluck", 10], 8: ["Pilgrim's progress", "John Bunyan", 23],
@@ -146,8 +185,8 @@ def stat():
 
     list_of_books = []
 
-    for key in books:
-        values = books[key]
+    for key in books3:
+        values = books3[key]
         list_of_books.append(values[0])
 
     if book_title.capitalize() in list_of_books:
